@@ -26,11 +26,18 @@ mongoose.set('useFindAndModify', false);
 
 
 router.get("/products",function(req,res){
+    var xerox=req.query.xerox;
     Product.find({},function(err,products){
         if(err){
             console.log(err);
         }else{
-            res.render("index",{products:products});
+            if(xerox==="book"){
+                res.send(products);
+            }else{
+                res.render("index",{products:products});
+            }
+            
+               // res.render("index",{products:products});
         }
     })
 });
@@ -81,26 +88,38 @@ router.post("/products",isLoggedIn,upload.array('image',10),function(req,res){
 
 //show page
 router.get("/products/:id",isLoggedIn,function(req,res){
+    var xerox=req.query.xerox;
     Product.findById(req.params.id).populate("comments").exec(function(err,selectedProduct){
         if(err){
             console.log(err);
         }else{
-            res.render("show",{product:selectedProduct});
+            if(xerox==="book"){
+                res.send(selectedProduct);
+            }else{
+                res.render("show",{product:selectedProduct});
+            }
         }
     });
 });
 
 router.get("/products/:id/edit",checkUser,function(req,res){
+    var xerox=req.query.xerox;
     Product.findById(req.params.id,function(err,product){
-            res.render("edit",{product :product});        
+            if(xerox==="book"){
+                res.send(product);
+            }
+            else{
+                res.render("edit",{product :product}); 
+            }
+                   
     })
 });
 
 //put or update route
 router.put("/products/:id",checkUser,function(req,res){
+    // console.log(req.body.product);
     req.body.product.description=req.sanitize(req.body.product.description);
     Product.findByIdAndUpdate(req.params.id,req.body.product,function(err,product){
-       
             res.redirect("/products/" + req.params.id);
     });
  });
@@ -202,49 +221,5 @@ router.put("/products/:id",checkUser,function(req,res){
         }
     }
 
-// //send email to seller for order placed
-// function sendEmailToSellerForOrderPlaced(username,productName,productAuthorId){
-//     //updating the email campaign
-//     var emailBody=username + " has placed an order of your product " + productName; 
-//     var options = {
-//         method: 'PUT',
-//         url: 'https://api.sendinblue.com/v3/emailCampaigns/4',
-//         headers: {
-//             accept: 'application/json',
-//             'content-type': 'application/json',
-//             'api-key': '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'
-//         },
-//         body: '{"recipients":{"listIds":[7]},"inlineImageActivation":false,"recurring":false,"abTesting":false,"ipWarmupEnable":false,"htmlContent":"<Strong>'+emailBody+'</strong>","subject":"Order placed for your Product"}'
-//         };
-    
-//         request(options, function (error, response, body) {
-//             if (error){
-//                 console.log(error)
-//             }
-//               console.log(body);
-//               console.log("updated Campaign")
-//           });
-//           //sending email
-//           User.findById(productAuthorId,function(err,user){
-//             var options = {
-//                 method: 'POST',
-//                 url: 'https://api.sendinblue.com/v3/emailCampaigns/4/sendTest',
-//                 headers: {
-//                   accept: 'application/json',
-//                   'content-type': 'application/json',
-//                   'api-key': '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'
-//                 },
-//                 body: '{"emailTo":["'+user.email+'"]}'
-//               };
-              
-//               request(options, function (error, response, body) {
-//                 if (error){
-//                     console.log(error +"is the error")
-//                 }else{
-//                     console.log("email sent")
-//                 }
-//               });
-//           })
-// }
 
  module.exports=router;

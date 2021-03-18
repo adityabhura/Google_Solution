@@ -22,11 +22,11 @@ router.post("/register",function(req,res){
             console.log(err);
             return res.render("register");
         }
-        passport.authenticate("loacl")(req,res,function(){
-            req.flash("success","Registered your account");
+        passport.authenticate("loacl")(req,res,function(){   
             sendEmail(user.username,user.token);
+            req.flash("success","Registered your account");
             res.redirect("/verify");
-            console.log("Registered");
+            console.log("Registered");      
         });
     });
 })
@@ -97,16 +97,24 @@ router.post("/verify",function(req,res){
 })
 
 router.get("/profiles/:id",isLoggedIn,function(req,res){
+    var xerox=req.query.xerox;
     User.findById(req.params.id,function(err,user){
         if(err){
             req.flash("error",err.message)
             res.redirect("/");
         }else{
-            res.render("profile",{user:user});
+            if(xerox==="book"){
+                res.send(user)
+            }else{
+                res.render("profile",{user:user});
+            }
+            
         }
     })
 })
-// .
+
+
+//********THE END********//
 router.get("/profiles/:id/myorders",checkAuthorisation,function(req,res){
     User.findById(req.params.id).populate({path:"myorders",model:"Myorder"}).populate({path:"myorders",model:"Myorder",populate:{path:"product",model:"Product"}}).exec(function(err,user){
         if(err){

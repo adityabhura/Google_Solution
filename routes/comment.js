@@ -7,11 +7,17 @@ var User=require("../models/user.js")
 
 //new comment form
 router.get("/products/:id/comment/new",isLoggedIn,function(req,res){
+    var xerox=req.query.xerox;
     Product.findById(req.params.id,function(err,product){
         if(err){
             console.log(err);
         }else{
-           res.render("newcomment",{product:product});
+            if(xerox==="book"){
+                res.send(product);
+            }else{
+                res.render("newcomment",{product:product});
+            }
+           
         }
     })
 })
@@ -26,14 +32,15 @@ router.post("/products/:id/comment",isLoggedIn,function(req,res){
                if(err){
                    console.log(err);
                }else{
-                   comment.author.id=req.user._id;
-                   comment.author.username=req.user.username;
-                   comment.save();
-                   product.comments.push(comment);
-                   product.save();
-                   sendEmailToSellerAboutNewComment(req.user.username,product.title,product.author.id);
-                   req.flash("success","Added your Comment About the Product");
-                   res.redirect("/products/" + req.params.id);
+                comment.author.id=req.user._id;
+                comment.author.username=req.user.username;
+                comment.save();
+                product.comments.push(comment);
+                product.save();
+                sendEmailToSellerAboutNewComment(req.user.username,product.title,product.author.id);
+                req.flash("success","Added your Comment About the Product");
+                res.redirect("/products/" + req.params.id);
+                 
                }
            })
        }
@@ -42,12 +49,18 @@ router.post("/products/:id/comment",isLoggedIn,function(req,res){
 
 //edit comment form
 router.get("/products/:id/comment/:commentId/edit",checkUserComments,function(req,res){
+    var xerox=req.query.xerox;
     var productId=req.params.id;
     Comment.findById(req.params.commentId,function(err,comment){
         if(err){
             res.redirect("back");
         }else{
-            res.render("editComment",{productId:productId,comment:comment});
+            if(xerox==="book"){
+                res.send(comment);
+            }else{
+                res.render("editComment",{productId:productId,comment:comment});
+            }
+            
         }
     })
 })
@@ -59,7 +72,7 @@ router.put("/products/:id/comment/:commentId",checkUserComments,function(req,res
             res.redirect("back");
         }else{
             req.flash("success","Successfully Edited your comment");
-            res.redirect("/products/" + req.params.id );
+            res.redirect("/products/" + req.params.id );    
         }
     })
 })
