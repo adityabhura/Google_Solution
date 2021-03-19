@@ -40,6 +40,7 @@ mongoose.connect("mongodb+srv://google_solutions:aditya@cluster0.wbjws.mongodb.n
 });
 
 app.use(bodyParser.urlencoded({extended :true}));
+app.use(bodyParser.json());
 
 app.use(expressSantizer());
 
