@@ -38,10 +38,11 @@ router.get("/login",function(req,res){
 
 //login post route
 router.post("/login",function(req,res,next){
+var xerox=req.query.xerox;
 User.findOne({username:req.body.username},function(err,user){
     if(!user){
-        req.flash("error","Invalid Email or Password")
-        res.redirect("/login");
+            req.flash("error","Invalid Email or Password")
+            res.redirect("/login"); 
     }else{
         if(!user.active){
             req.flash("error","Verify Your Account first");
