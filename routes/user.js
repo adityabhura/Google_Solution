@@ -41,24 +41,12 @@ router.post("/login",function(req,res,next){
 var xerox=req.query.xerox;
 User.findOne({username:req.body.username},function(err,user){
     if(!user){
-        if(xerox=="book"){
-            res.send({
-            message:"wrong creds"
-            });
-        }else{
             req.flash("error","Invalid Email or Password")
-            res.redirect("/login");
-        } 
+            res.redirect("/login"); 
     }else{
         if(!user.active){
-            if(xerox=="book"){
-                res.send({
-                message:"verify please"
-                });
-            }else{
             req.flash("error","Verify Your Account first");
             res.redirect("/login");
-         }
         }
          return next();
     }
@@ -69,9 +57,6 @@ User.findOne({username:req.body.username},function(err,user){
     successFlash:"You successfully logged in",
     failureRedirect:"/login"
 }),function(req,res){
-    res.json({
-        message:"successful"
-    });
 });
 
 //logout route
