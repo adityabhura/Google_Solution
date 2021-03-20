@@ -72,11 +72,20 @@ router.get("/verify",function(req,res){
 })
 
 router.post("/verify",function(req,res){
-    var token=req.body.token;
+    var xerox=req.query.xerox;
+    var token=req.body.token; 
+    error={
+        message:"Wrong code"
+    }
    User.findOne({token:token},function(err,user){
     if(!user){
         req.flash("error","Invalid Verification Code");
-        res.redirect("/verify");
+        if(xerox==="book"){
+            res.send(error);
+        }else{
+            res.redirect("/verify");
+        }
+        
     }else{
         if(err){
             console.log(err);

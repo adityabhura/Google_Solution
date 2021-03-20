@@ -27,12 +27,13 @@ mongoose.set('useFindAndModify', false);
 
 router.get("/products",function(req,res){
     var xerox=req.query.xerox;
+    var currentUser=req.user;
     Product.find({},function(err,products){
         if(err){
             console.log(err);
         }else{
             if(xerox==="book"){
-                res.send(products);
+                res.send([{products},{currentUser}]);
             }else{
                 res.render("index",{products:products});
             }
