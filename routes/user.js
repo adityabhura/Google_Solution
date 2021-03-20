@@ -69,6 +69,9 @@ User.findOne({username:req.body.username},function(err,user){
     successFlash:"You successfully logged in",
     failureRedirect:"/login"
 }),function(req,res){
+    res.json({
+        message:"successful"
+    });
 });
 
 //logout route
