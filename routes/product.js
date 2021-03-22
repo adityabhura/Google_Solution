@@ -44,7 +44,7 @@ router.get("/products",function(req,res){
             console.log(err);
         }else{
             if(xerox==="book"){
-                res.send([{products},{currentUser}]);
+                res.send({products},{currentUser});
             }else{
                 res.render("index",{products:products});
             }
