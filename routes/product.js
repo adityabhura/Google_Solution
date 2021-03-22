@@ -28,6 +28,8 @@ mongoose.set('useFindAndModify', false);
 router.get("/products",function(req,res){
     var xerox=req.query.xerox;
     var currentUser=req.user;
+    // console.log(req.session);
+    // console.log(req.sessionID)
     Product.find({},function(err,products){
         if(err){
             console.log(err);
@@ -46,11 +48,17 @@ router.get("/products/new",isLoggedIn,function(req,res){
 })
 
 router.post("/products",isLoggedIn,upload.array('image',10),function(req,res){
-    console.log(req.body);
     var title=req.body.title;
     var description=req.body.description;
     var created=req.body.created;
-    var location=req.body.location;
+    var address={
+        area:req.body.area,
+        city:req.body.area,
+        state:req.body.state,
+        country:req.body.country
+    };
+    var phoneNumber=req.body.phoneNumber
+    console.log(req.body.phoneNumber);
     var author={
         id:req.user._id,
         username:req.user.username
@@ -59,7 +67,6 @@ router.post("/products",isLoggedIn,upload.array('image',10),function(req,res){
     var bookauthor=req.body.bookauthor;
     //for uploading image
     var image=[];
-    // image.push(req.body.image);
     req.files.forEach(function(file){
         image.push(file.path)
     });   
@@ -69,7 +76,8 @@ router.post("/products",isLoggedIn,upload.array('image',10),function(req,res){
         author:author,
         amount:amount,
         Created:created,
-        location:location,
+        address:address,
+        phoneNumber:phoneNumber,
         image:image,
         bookauthor:bookauthor,
     },function(err,newProduct){
@@ -79,7 +87,6 @@ router.post("/products",isLoggedIn,upload.array('image',10),function(req,res){
             User.findById(req.user._id,function(err,user){
                 user.myproducts.push(newProduct)
                 user.save();
-                // res.send(req.body);
                 res.redirect("/products");
                 console.log(newProduct);
                 console.log(user.myproducts)
@@ -119,7 +126,6 @@ router.get("/products/:id/edit",checkUser,function(req,res){
 
 //put or update route
 router.put("/products/:id",checkUser,function(req,res){
-    // console.log(req.body.product);
     req.body.product.description=req.sanitize(req.body.product.description);
     Product.findByIdAndUpdate(req.params.id,req.body.product,function(err,product){
             res.redirect("/products/" + req.params.id);

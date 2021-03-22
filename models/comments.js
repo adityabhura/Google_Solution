@@ -2,13 +2,13 @@ var mongoose=require("mongoose");
 
 //Defining the Schema
 var commentSchema = new mongoose.Schema({
-    title:String,
+    comment:String,
     author:{
         id:{
             type:mongoose.Schema.Types.ObjectId,
            ref:"User"
         },
-        username:String
+        name:String
     },
     date:{type:Date,default:Date.now}
 });

@@ -15,7 +15,13 @@ var productSchema = new mongoose.Schema({
     },
     bookauthor:String,
     Created:{type:Date,default:Date.now},
-    location:String,
+    address:{
+        area:String,
+        city:String,
+        state:String,
+        country:String
+    },
+    phoneNumber:String,
     comments:[
         {
             type:mongoose.Schema.Types.ObjectId,

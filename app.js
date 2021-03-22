@@ -16,7 +16,6 @@ var Comment=require("./models/comments.js");
 var flash=require("connect-flash");
 var token=require("randomstring");
 
-
 //for express-session
 app.use(require("express-session")({
     secret:"Aditya Bhura",

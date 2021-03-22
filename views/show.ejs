@@ -16,7 +16,10 @@
             <p><%= product.description %></p> 
         </div>
         <div class="description">
-            <p>Location of Renter<%= product.location%></p> 
+            <p>Location of Renter<%= product.address%></p> 
+        </div>
+        <div class="description">
+            <p>Phone Number: <%= product.phoneNumber%></p> 
         </div>
         <div class="description">
             <p>By <%= product.bookauthor %></p> 
@@ -50,13 +53,13 @@
 </div>
 <div class="content">
     <% product.comments.forEach(function(comment){ %>
-        <p><strong><%= comment.author.username %></strong></p>
-        <%= comment.title %>
+        <p><strong><%= comment.author.name %></strong><br>
+        <strong><%= comment.comment %></strong> </p>
         <%= comment.date %>
         <% if(comment.author.id.equals(currentUser._id) && currentUser ){ %>
-        <a href="/products/<%=product._id%>/comment/<%= comment._id%>/edit">
+        <!-- <a href="/products/<%=product._id%>/comment/<%= comment._id%>/edit">
             <button class="ui black basic button">Edit Comment</button>
-        </a>
+        </a> -->
         <form action="/products/<%=product._id%>/comment/<%= comment._id%>?_method=DELETE" method="POST" id="delete">
             <button class="ui black basic button">Delete Comment</button>
         </form>

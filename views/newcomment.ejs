@@ -5,7 +5,7 @@
     <form action="/products/<%= product._id %>/comment"  method="POST" class="ui form">
         <div class="field">
             <label>Comment</label>
-            <input type="text" name="comment[title]" placeholder="Text" required>
+            <input type="text" name="comment[comment]" placeholder="Comment(Max lenght = 100 words)" required maxlength="50">
         </div>
         <button class="ui blue basic button">Submit</button>
     </form>

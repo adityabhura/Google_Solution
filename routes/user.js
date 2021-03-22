@@ -85,8 +85,7 @@ router.post("/verify",function(req,res){
             res.send(error);
         }else{
             res.redirect("/verify");
-        }
-        
+        } 
     }else{
         if(err){
             console.log(err);
