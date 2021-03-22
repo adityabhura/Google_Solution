@@ -5,6 +5,14 @@ var Comment=require("../models/comments.js");
 var request=require("request");
 var User=require("../models/user.js")
 
+var successMessage={
+    message:"Success"
+}
+
+var errorMessage={
+    message:"Fail"
+}
+
 //new comment form
 router.get("/products/:id/comment/new",isLoggedIn,function(req,res){
     var xerox=req.query.xerox;
@@ -30,7 +38,11 @@ router.post("/products/:id/comment",isLoggedIn,function(req,res){
        }else{
            Comment.create(req.body.comment,function(err,comment){
                if(err){
-                   console.log(err);
+                if(xerox==="book"){
+                    res.send(errorMessage);
+                }else{
+                    res.send("Error");
+                }
                }else{
                 comment.author.id=req.user._id;
                 comment.author.name=req.user.name;
@@ -38,9 +50,12 @@ router.post("/products/:id/comment",isLoggedIn,function(req,res){
                 product.comments.push(comment);
                 product.save();
                 // sendEmailToSellerAboutNewComment(req.user.username,product.title,product.author.id);
-                req.flash("success","Successfully added comment");
-                res.redirect("/products/" + req.params.id);
-                 
+                if(xerox==="book"){
+                    res.send(successMessage);
+                }else{
+                    req.flash("success","Successfully added comment");
+                    res.redirect("/products/" + req.params.id);
+                }  
                }
            })
        }

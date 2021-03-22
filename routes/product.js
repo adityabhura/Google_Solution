@@ -22,6 +22,15 @@ var upload=multer({storage:storage,
                     }
 });
 
+var successMessage={
+    message:"Success"
+}
+
+var errorMessage={
+    message:"Fail"
+}
+
+
 mongoose.set('useFindAndModify', false);
 
 
@@ -83,11 +92,20 @@ router.post("/products",isLoggedIn,upload.array('image',10),function(req,res){
     },function(err,newProduct){
         if(err){
             console.log(err);
+            if(xerox==="book"){
+                res.send(errorMessage);
+            }else{
+                res.send("Error");
+            }
         }else{
             User.findById(req.user._id,function(err,user){
                 user.myproducts.push(newProduct)
                 user.save();
-                res.redirect("/products");
+                if(xerox==="book"){
+                    res.send(successMessage);
+                }else{
+                    res.redirect("/products");
+                }  
                 console.log(newProduct);
                 console.log(user.myproducts)
             })        
@@ -126,17 +144,47 @@ router.get("/products/:id/edit",checkUser,function(req,res){
 
 //put or update route
 router.put("/products/:id",checkUser,function(req,res){
+    var xerox=req.query.xerox;
     req.body.product.description=req.sanitize(req.body.product.description);
     Product.findByIdAndUpdate(req.params.id,req.body.product,function(err,product){
-            res.redirect("/products/" + req.params.id);
+        if(err){
+            if(xerox==="book"){
+                res.send(errorMessage);
+            }else{
+                res.send("Error");
+            }
+        }else{
+            if(xerox==="book"){
+                res.send(successMessage);
+            }else{
+                res.redirect("/products/" + req.params.id);
+            }
+            
+        }
+            
     });
  });
 
  //delete route
  router.delete("/products/:id",checkUser,function(req,res){
+    var xerox=req.query.xerox;
     Product.findByIdAndRemove(req.params.id,function(err){
-            req.flash("success","Product Removed")
-            res.redirect("/products");
+            if(err){
+                if(xerox==="book"){
+                    res.send(errorMessage);
+                }else{
+                    res.send("Error");
+                }  
+            }else{
+                if(xerox==="book"){
+                    res.send(successMessage);
+                }else{
+                    req.flash("success","Product Removed")
+                    res.redirect("/products");
+                }
+
+            }
+            
         });
  });
 
