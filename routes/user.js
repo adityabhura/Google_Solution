@@ -82,25 +82,41 @@ router.get("/verify",function(req,res){
 router.post("/verify",function(req,res){
     var xerox=req.query.xerox;
     var token=req.body.token; 
-    error={
-        message:"Wrong code"
+    var error={
+        "message":"Wrong code"
+    }
+    var success={
+        "message":"Account Verified",
     }
    User.findOne({token:token},function(err,user){
     if(!user){
-        req.flash("error","Invalid Verification Code");
-         redirect("/verify");
-          
+        if(xerox==="book"){
+            res.send(error);
+        }else{
+            req.flash("error","Invalid Verification Code");
+            redirect("/verify");
+        }       
     }else{
         if(err){
+            if(xerox==="book"){
+                res.send(error);
+            }else{
+                req.flash("error","Error");
+                redirect("/verify");
+            } 
             console.log(err);
-            res.redirect("/verify");
         }else{
             user.active=true;
             user.token="";
             console.log(user.active);
             console.log(user.username);
-            req.flash("success","Your Account Has Been verified")
-            res.redirect("/login");
+            if(xerox==="book"){
+                res.send(success);
+            }else{
+                req.flash("success","Your Account Has Been verified")
+                res.redirect("/login");  
+            } 
+            
             console.log(user);
             user.save();
         }
