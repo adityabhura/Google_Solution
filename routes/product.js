@@ -19,8 +19,16 @@ var storage=multer.diskStorage({
 var upload=multer({storage:storage,
                     limits:{
                         fileSize:1024*1024*5,
-                    }
-});
+                    },
+                    fileFilter: (req, file, cb) => {
+                        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+                          cb(null, true);
+                        } else {
+                          cb(null, false);
+                          return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+                        }
+                      }
+}).array('image',1);
 
 var successMessage={
     message:"Success"
@@ -56,7 +64,19 @@ router.get("/products/new",isLoggedIn,function(req,res){
     res.render("new");
 })
 
-router.post("/products",isLoggedIn,upload.array('image',10),function(req,res){
+router.post("/products",isLoggedIn,(req,res,next)=>{upload(req,res,function(err){
+    var xerox=req.query.xerox;
+    if(err){
+        if(xerox==="book"){
+            res.send(errorMessage);
+        }else{
+            req.flash("error","Only .png, .jpg and .jpeg format allowed!")
+            res.redirect("/products/new");
+        }
+    }else{
+        next();
+    }
+})},function(req,res){
     var xerox=req.query.xerox;
     var title=req.body.title;
     var description=req.body.description;

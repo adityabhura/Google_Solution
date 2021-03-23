@@ -13,7 +13,7 @@
         </div>
         <div class="field">
             <label>Image</label>
-            <input type="file" name="image" multiple> 
+            <input type="file" name="image" oninvalid="alert('Only one file can be uploaded')" accept=".jpg,.png,.jpeg"> 
         </div>
         <div class="field">
             <label>Pick Up Address</label>
