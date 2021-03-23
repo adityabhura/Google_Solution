@@ -31,6 +31,7 @@ router.get("/products/:id/comment/new",isLoggedIn,function(req,res){
 })
 
 router.post("/products/:id/comment",isLoggedIn,function(req,res){
+    var xerox=req.query.xerox;
    Product.findById(req.params.id,function(err,product){
        if(err){
             req.flash("error","Something went wrong");
