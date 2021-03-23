@@ -123,7 +123,7 @@ router.post("/products",isLoggedIn,(req,res,next)=>{upload(req,res,function(err)
 router.post("/products/xeroxbook",isLoggedIn,(req,res,next)=>{upload(req,res,function(err){
     if(err){
             res.send({
-                message:"Invalid File Format"
+                "message":"Invalid File Format"
             });    
     }else{
         next();
