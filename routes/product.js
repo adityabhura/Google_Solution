@@ -65,19 +65,13 @@ router.get("/products/new",isLoggedIn,function(req,res){
 })
 
 router.post("/products",isLoggedIn,(req,res,next)=>{upload(req,res,function(err){
-    var xerox=req.query.xerox;
     if(err){
-        if(xerox==="book"){
-            res.send(errorMessage);
-        }else{
             req.flash("error","Only .png, .jpg and .jpeg format allowed!")
-            res.redirect("/products/new");
-        }
+            res.redirect("/products/new");      
     }else{
         next();
     }
 })},function(req,res){
-    var xerox=req.query.xerox;
     var title=req.body.title;
     var description=req.body.description;
     var address={
@@ -111,26 +105,77 @@ router.post("/products",isLoggedIn,(req,res,next)=>{upload(req,res,function(err)
     },function(err,newProduct){
         if(err){
             console.log(err);
-            if(xerox==="book"){
-                res.send(errorMessage);
-            }else{
                 res.send("Error");
-            }
         }else{
             User.findById(req.user._id,function(err,user){
                 user.myproducts.push(newProduct)
                 user.save();
-                if(xerox==="book"){
-                    res.send(successMessage);
-                }else{
-                    res.redirect("/products");
-                }  
+                res.redirect("/products"); 
                 console.log(newProduct);
                 console.log(user.myproducts)
             })        
         }
     })
 });
+
+
+//Post route for adding new book in Mobile App
+router.post("/products/xeroxbook",isLoggedIn,(req,res,next)=>{upload(req,res,function(err){
+    if(err){
+            res.send({
+                message:"Invalid File Format"
+            });    
+    }else{
+        next();
+    }
+})},function(req,res){
+    var title=req.query.title;
+    var description=req.query.description;
+    var address={
+        area:req.query.area,
+        city:req.query.area,
+        state:req.query.state,
+        country:req.query.country
+    };
+    var phoneNumber=req.query.phoneNumber
+    console.log(req.query.phoneNumber);
+    var author={
+        id:req.user._id,
+        username:req.user.username
+    };
+    var amount=req.query.amount;
+    var bookauthor=req.query.bookauthor;
+    //for uploading image
+    var image=[];
+    req.files.forEach(function(file){
+        image.push(file.path)
+    });
+        Product.create({
+        title:title,
+        description:description,
+        author:author,
+        amount:amount,
+        address:address,
+        phoneNumber:phoneNumber,
+        image:image,
+        bookauthor:bookauthor,
+    },function(err,newProduct){
+        if(err){
+            console.log(err);
+            res.send(errorMessage);
+        }else{
+            User.findById(req.user._id,function(err,user){
+                user.myproducts.push(newProduct)
+                user.save();
+                res.send(successMessage);
+                console.log(newProduct);
+                console.log(user.myproducts)
+            })
+          }
+       })
+   });
+
+
 
 //show page
 router.get("/products/:id",isLoggedIn,function(req,res){
