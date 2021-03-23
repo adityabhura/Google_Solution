@@ -14,20 +14,27 @@ router.get("/register",function(req,res){
 
 //post register route
 router.post("/register",function(req,res){
+    var xerox=req.query.xerox;
     var token=randomstring.generate();
     console.log(token);
     var active=false;
     User.register(new User({username:req.body.email,name:req.body.name,token:token,active:active,area:req.body.area,city:req.body.city,country:req.body.country}),req.body.password,function(err,user){
         if(err){
             console.log(err);
-            return res.render("register");
-        }
-        passport.authenticate("loacl")(req,res,function(){   
+            if(xerox==="book"){
+                res.send({
+                    "message":err.message
+                })
+            }else{
+                req.flash("error",err.message);
+                res.redirect("/register");
+            }  
+        }else{
             sendEmail(user.username,user.token);
             req.flash("success","Registered your account");
             res.redirect("/verify");
-            console.log("Registered");      
-        });
+            console.log("Registered"); 
+        }
     });
 })
 
@@ -81,11 +88,8 @@ router.post("/verify",function(req,res){
    User.findOne({token:token},function(err,user){
     if(!user){
         req.flash("error","Invalid Verification Code");
-        if(xerox==="book"){
-            res.send(error);
-        }else{
-            res.redirect("/verify");
-        } 
+         redirect("/verify");
+          
     }else{
         if(err){
             console.log(err);
