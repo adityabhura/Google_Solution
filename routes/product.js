@@ -57,9 +57,9 @@ router.get("/products/new",isLoggedIn,function(req,res){
 })
 
 router.post("/products",isLoggedIn,upload.array('image',10),function(req,res){
+    var xerox=req.query.xerox;
     var title=req.body.title;
     var description=req.body.description;
-    var created=req.body.created;
     var address={
         area:req.body.area,
         city:req.body.area,
@@ -84,7 +84,6 @@ router.post("/products",isLoggedIn,upload.array('image',10),function(req,res){
         description:description,
         author:author,
         amount:amount,
-        Created:created,
         address:address,
         phoneNumber:phoneNumber,
         image:image,
