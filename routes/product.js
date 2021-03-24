@@ -76,7 +76,7 @@ router.post("/products",isLoggedIn,(req,res,next)=>{upload(req,res,function(err)
     var description=req.body.description;
     var address={
         area:req.body.area,
-        city:req.body.area,
+        city:req.body.city,
         state:req.body.state,
         country:req.body.country
     };
@@ -133,7 +133,7 @@ router.post("/products/xeroxbook",isLoggedIn,(req,res,next)=>{upload(req,res,fun
     var description=req.query.description;
     var address={
         area:req.query.area,
-        city:req.query.area,
+        city:req.query.city,
         state:req.query.state,
         country:req.query.country
     };
