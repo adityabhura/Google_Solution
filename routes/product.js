@@ -352,6 +352,7 @@ router.put("/products/:id",checkUser,function(req,res){
 
 
 
+
     // router.post("/bookmark/:id/:userId",function(req,res){
     //     findById(req.user._id,function(err,user){
     //         if(err){
@@ -386,3 +387,5 @@ router.put("/products/:id",checkUser,function(req,res){
 
 
  module.exports=router;
+
+
