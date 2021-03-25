@@ -6,11 +6,11 @@ var request=require("request");
 var User=require("../models/user.js")
 
 var successMessage={
-    message:"Success"
+    "message":"Success"
 }
 
 var errorMessage={
-    message:"Fail"
+    "message":"Fail"
 }
 
 //new comment form
@@ -32,28 +32,32 @@ router.get("/products/:id/comment/new",isLoggedIn,function(req,res){
 
 router.post("/products/:id/comment",isLoggedIn,function(req,res){
     var xerox=req.query.xerox;
+    var commentText=req.body.comment;
    Product.findById(req.params.id,function(err,product){
        if(err){
             req.flash("error","Something went wrong");
             console.log(err);
        }else{
-           Comment.create(req.body.comment,function(err,comment){
+           Comment.create({comment:commentText},function(err,newComment){
                if(err){
                 if(xerox==="book"){
                     res.send(errorMessage);
                 }else{
+                    // res.send(req.body.comment);
                     res.send("Error");
                 }
                }else{
-                comment.author.id=req.user._id;
-                comment.author.name=req.user.name;
-                comment.save();
-                product.comments.push(comment);
+                newComment.author.id=req.user._id;
+                newComment.author.name=req.user.name;
+                newComment.save();
+                product.comments.push(newComment);
                 product.save();
                 // sendEmailToSellerAboutNewComment(req.user.username,product.title,product.author.id);
                 if(xerox==="book"){
                     res.send(successMessage);
                 }else{
+                    // console.log(successMessage);
+                    // console.log(newComment);
                     req.flash("success","Successfully added comment");
                     res.redirect("/products/" + req.params.id);
                 }  

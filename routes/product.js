@@ -7,6 +7,7 @@ var User=require("../models/user.js");
 var request=require("request")
 
 var multer=require("multer");
+const { findById } = require("../models/user.js");
 
 var storage=multer.diskStorage({
     destination:function(req,file,cb){
@@ -54,7 +55,7 @@ router.get("/products",function(req,res){
             if(xerox==="book"){
                 res.send({products,currentUser});
             }else{
-                res.render("index",{products:products});
+                res.render("index",{products:products,currentUser:currentUser});
             }
         }
     })
@@ -76,7 +77,7 @@ router.post("/products",isLoggedIn,(req,res,next)=>{upload(req,res,function(err)
     var description=req.body.description;
     var address={
         area:req.body.area,
-        city:req.body.area,
+        city:req.body.city,
         state:req.body.state,
         country:req.body.country
     };
@@ -133,7 +134,7 @@ router.post("/products/xeroxbook",isLoggedIn,(req,res,next)=>{upload(req,res,fun
     var description=req.query.description;
     var address={
         area:req.query.area,
-        city:req.query.area,
+        city:req.query.city,
         state:req.query.state,
         country:req.query.country
     };
@@ -187,6 +188,7 @@ router.get("/products/:id",isLoggedIn,function(req,res){
             if(xerox==="book"){
                 res.send(selectedProduct);
             }else{
+                // console.log(selectedProduct);
                 res.render("show",{product:selectedProduct});
             }
         }
@@ -347,6 +349,40 @@ router.put("/products/:id",checkUser,function(req,res){
     //     // JSON.parse(req.body);
     //     res.send(req.body);
     //   });
+
+
+
+    // router.post("/bookmark/:id/:userId",function(req,res){
+    //     findById(req.user._id,function(err,user){
+    //         if(err){
+    //             console.log(err);
+    //         }else{
+    //             if(req.body.bookmark==="YES"){
+    //                 user.bookmarks.push(req.params.id);
+    //                 user.save();
+    //                 console.log("Bookmarked");
+    //                 console.log(user.bookmarks);
+    //             }else{
+    //                 var length=user.bookmarks.length;
+    //                 for(var i=0;i<lenght;i++){
+    //                     if(user.bookmarks[i]===req.params.id){
+    //                         user.bookmarks.splice(i,1);
+    //                         user.save();
+    //                         console.log("Bookmark Removed");
+    //                         console.log(user.bookmarks);
+    //                     }
+    //                 }
+    //                 }
+    //             }
+                
+    //         }
+    //     )
+    // })
+
+
+    // router.post("/bookmark/notAuthorised",function(req,res){    
+    //         req.flash("error","You need to be logged in"); 
+    // })
 
 
  module.exports=router;

@@ -99,7 +99,7 @@ router.post("/verify",function(req,res){
     }else{
         if(err){
             if(xerox==="book"){
-                res.send(error);
+                res.send(success);
             }else{
                 req.flash("error","Error");
                 redirect("/verify");

@@ -18,18 +18,14 @@ var UserSchema=new mongoose.Schema({
         latitude:Number,
         longitude:Number
     },
-    myorders:[{
+    bookmarks:[{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Myorder"
+        ref:"Product"
     }],
     myproducts:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Product"
     }],
-    ordered:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Myorder"
-    }]
 });
 
 UserSchema.plugin(passportLocalMongoose);
