@@ -15,26 +15,22 @@
                     <div class="extra content">
                         <a href="/products/<%= product._id %>" class="right floated"><button class="ui inverted primary button">Show more</button></a>
                         <div class="header">Rs <%= product.amount %> /week</div>
-                    </div> 
+                    </div>    
                     
-                    <!-- <% if(!currentUser){ %>
-                        <div class="extra content">
-                            <form action="/bookmark/notAuthorised" method="POST">
-                                <input type="submit" name="bookmark" value="YES">
-                            </form>
-                        </div> 
-                    <% } %>
-                    <div class="extra content">
-                        <form action="/products" method="POST">
-                            <input type="submit" name="bookmark" value="YES">
-                        </form>
-                    </div>          -->
-                    
-
                 </div>
             </div>
         </div>
+        
             <% }); %>       
     </div>
 </div>
+
+
+
 <%- include("partials/footer") %>
+
+
+
+
+
+

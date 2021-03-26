@@ -28,6 +28,32 @@
             <p><strong>Rs <%= product.amount %>/week</strong></p> 
         </div>  
     </div>
+
+
+<!-- Bookmark Buttom starts here -->
+        <% var flag=0; %>
+        <% for(var i=0;i<currentUser.bookmarks.length ;i++){  %>
+            <%  if(String(currentUser.bookmarks[i])==String(product._id)){  %>           
+                <div class="extra content">                 
+                    <form action="/bookmark/<%=product._id %>/<%=currentUser._id %>" method="POST">
+                        <input id="bookmarkButton" type="submit" name="bookmark" value="Y" style="background-color:red; color: transparent;">
+                    </form>
+                </div> 
+                <%    flag=1;    %> 
+                <%  break;   %> 
+                <% }     %> 
+        <%  }  %> 
+        <%     if(flag===0){   %> 
+            <div class="extra content">
+                <form action="/bookmark/<%=product._id %>/<%=currentUser._id %>" method="POST">
+                    <input id="bookmarkButton" type="submit" name="bookmark" value="N" style="background-color: transparent;color: transparent;">
+                </form>
+            </div> 
+        <% } %>   
+<!-- Bookmark Buttom ends here -->
+
+
+
     
     <!-- buy form -->
     <!-- <% if(product.quantity > 0){ %>
@@ -67,6 +93,8 @@
     <% }) %>              
 </div>
 </div>
+
+
 
 
 <%- include("partials/footer") %>

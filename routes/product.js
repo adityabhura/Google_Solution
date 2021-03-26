@@ -181,6 +181,7 @@ router.post("/products/xeroxbook",isLoggedIn,(req,res,next)=>{upload(req,res,fun
 //show page
 router.get("/products/:id",isLoggedIn,function(req,res){
     var xerox=req.query.xerox;
+    var currentUser=req.user;
     Product.findById(req.params.id).populate("comments").exec(function(err,selectedProduct){
         if(err){
             console.log(err);
@@ -189,7 +190,7 @@ router.get("/products/:id",isLoggedIn,function(req,res){
                 res.send(selectedProduct);
             }else{
                 // console.log(selectedProduct);
-                res.render("show",{product:selectedProduct});
+                res.render("show",{product:selectedProduct,currentUser:currentUser});
             }
         }
     });
@@ -211,6 +212,7 @@ router.get("/products/:id/edit",checkUser,function(req,res){
 //put or update route
 router.put("/products/:id",checkUser,function(req,res){
     var xerox=req.query.xerox;
+    console.log(req.body);
     req.body.product.description=req.sanitize(req.body.product.description);
     Product.findByIdAndUpdate(req.params.id,req.body.product,function(err,product){
         if(err){
@@ -253,68 +255,6 @@ router.put("/products/:id",checkUser,function(req,res){
             
         });
  });
-
-//  //buy confirm form
-//  router.get("/products/:id/buy/confirm",isLoggedIn,function(req,res){
-//     res.render("confirmbuy");
-//  })
-
-//  router.get("/products/:id/buy",isLoggedIn,function(req,res){
-//     Product.findById(req.params.id,function(err,product){
-//             res.render("buyform",{product:product});
-//     });
-//  });
-
-//  router.put("/products/:productid/buy/:id",isLoggedIn,
-//             function(req,res,next){
-//                 Product.findById(req.params.productid,function(err,foundProduct){
-//                     var amount=req.body.product.quantity * foundProduct.amount;
-//                     User.findById(req.params.id,function(err,user){
-//                         if(err){
-//                             console.log(err)
-//                         }else{
-//                             console.log(user.myproducts)
-//                             Myorder.create({product:req.params.productid,
-//                                             address:req.body.address,
-//                                             quantity:req.body.product.quantity,
-//                                             amount:amount,
-//                                             status:true},
-//                                 function(err,myorder){
-//                                     if(err){
-//                                         console.log(err);
-//                                     }else{
-//                                         myorder.author.id=req.user._id;
-//                                         myorder.save();
-//                                         console.log("hello")
-//                                         console.log(myorder);
-//                                         user.myorders.push(myorder);
-//                                         user.save();
-//                         //add ordered item to the sellers dashboard
-//                             Product.findById(req.params.productid,function(err,product){
-//                                 User.findById(product.author.id,function(err,user){
-//                                     user.ordered.push(myorder)
-//                                     user.save();
-//                                     console.log(user.ordered)
-//                                     sendEmailToSellerForOrderPlaced(req.user.username,product.title,product.author.id);
-//                                     next();
-//                                     })
-//                                 })
-//                                     }                       
-//                                 })
-//                             }
-//                     })    
-//                 }) 
-//                 },
-//         function(req,res){
-//             Product.findByIdAndUpdate(req.params.productid,req.body.product,
-//                 function(err,product){
-//                     product.quantity=product.quantity-req.body.product.quantity;
-//                     product.save()
-//                     console.log(product.quantity)
-//                     req.flash("success","Order Placed Succesfully, Keep Checking Your Dashboard for further details");
-//                     res.redirect("/products/"+req.params.productid+"/buy/confirm");
-//                 });
-//     });
  
 //if logged in function
     function isLoggedIn(req,res,next){
@@ -353,32 +293,51 @@ router.put("/products/:id",checkUser,function(req,res){
 
 
 
-    // router.post("/bookmark/:id/:userId",function(req,res){
-    //     findById(req.user._id,function(err,user){
-    //         if(err){
-    //             console.log(err);
-    //         }else{
-    //             if(req.body.bookmark==="YES"){
-    //                 user.bookmarks.push(req.params.id);
-    //                 user.save();
-    //                 console.log("Bookmarked");
-    //                 console.log(user.bookmarks);
-    //             }else{
-    //                 var length=user.bookmarks.length;
-    //                 for(var i=0;i<lenght;i++){
-    //                     if(user.bookmarks[i]===req.params.id){
-    //                         user.bookmarks.splice(i,1);
-    //                         user.save();
-    //                         console.log("Bookmark Removed");
-    //                         console.log(user.bookmarks);
-    //                     }
-    //                 }
-    //                 }
-    //             }
+    router.post("/bookmark/:id/:userId",function(req,res){
+        var xerox=req.query.xerox;
+        var x=0;
+        User.findById(req.user._id,function(err,user){
+            if(err){
+                console.log(err);
+            }else{
+                if(req.body.bookmark==="N"){
+                    user.bookmarks.push(req.params.id);
+                    user.save();
+                    console.log("Bookmarked");
+                    console.log(user.bookmarks);
+                    if(xerox==="book"){
+                        res.send({"message":"Added to Bookmarks"});
+                    }else{
+                        req.flash("success","Added to Bookmarks");
+                        res.redirect("/products/" + req.params.id);
+                    }
+                    
+                }
+                if(req.body.bookmark==="Y"){
+                            var index = user.bookmarks.indexOf(req.params.id);
+                            console.log(index);
+                            if(index>-1){
+                                user.bookmarks.splice(index,1);
+                            }
+                            user.save();
+                            if(xerox==="book"){
+                                if(index==-1){
+                                    res.send({"message":"Index is -1"});  
+                                }else{
+                                    res.send({"message":"Removed From Bookmarks"});
+                                }
+                            }else{
+                                req.flash("success","Removed From Bookmarks");
+                                res.redirect("/products/" + req.params.id);
+                            } 
+                            console.log("Bookmark Removed");
+                            console.log(user.bookmarks);   
+                    }
+                }
                 
-    //         }
-    //     )
-    // })
+            }
+        )
+    })
 
 
     // router.post("/bookmark/notAuthorised",function(req,res){    
