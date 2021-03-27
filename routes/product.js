@@ -256,6 +256,65 @@ router.put("/products/:id",checkUser,function(req,res){
             
         });
  });
+
+
+
+//bookmark routes//
+router.post("/bookmark/:id/:userId",isLoggedIn,function(req,res){
+    var xerox=req.query.xerox;
+    var x=0;
+    User.findById(req.user._id,function(err,user){
+        if(err){
+            console.log(err);
+        }else{
+            if(req.body.bookmark==="N"){
+                var index=user.bookmarks.indexOf(req.params.id);
+                if(index>-1){
+                    if(xerox==="book"){
+                        res.send({"message":"This Book is already added to bookmarks"});
+                    }else{
+                        req.flash("error","Already added to Bookmarks");
+                        res.redirect("/products/" + req.params.id);
+                    }
+                }else{
+                    user.bookmarks.push(req.params.id);
+                    user.save();
+                    console.log("Bookmarked");
+                    console.log(user.bookmarks);
+                    if(xerox==="book"){
+                        res.send({"message":"Added to Bookmarks"});
+                    }else{
+                        req.flash("success","Added to Bookmarks");
+                        res.redirect("/products/" + req.params.id);
+                    } 
+                }      
+            }
+            if(req.body.bookmark==="Y"){
+                        var index = user.bookmarks.indexOf(req.params.id);
+                        console.log(index);
+                        if(index>-1){
+                            user.bookmarks.splice(index,1);
+                        }
+                        user.save();
+                        if(xerox==="book"){
+                            if(index==-1){
+                                res.send({"message":"Index is -1"});  
+                            }else{
+                                res.send({"message":"Removed From Bookmarks"});
+                            }
+                        }else{
+                            req.flash("success","Removed From Bookmarks");
+                            res.redirect("/products/" + req.params.id);
+                        } 
+                        console.log("Bookmark Removed");
+                        console.log(user.bookmarks);   
+                }
+            }
+            
+        }
+    )
+})
+
  
 //if logged in function
     function isLoggedIn(req,res,next){
@@ -294,61 +353,7 @@ router.put("/products/:id",checkUser,function(req,res){
 
 
 
-    router.post("/bookmark/:id/:userId",function(req,res){
-        var xerox=req.query.xerox;
-        var x=0;
-        User.findById(req.user._id,function(err,user){
-            if(err){
-                console.log(err);
-            }else{
-                if(req.body.bookmark==="N"){
-                    var index=user.bookmarks.indexOf(req.params.id);
-                    if(index>-1){
-                        if(xerox==="book"){
-                            res.send({"message":"This Book is already added to bookmarks"});
-                        }else{
-                            req.flash("error","Already added to Bookmarks");
-                            res.redirect("/products/" + req.params.id);
-                        }
-                    }else{
-                        user.bookmarks.push(req.params.id);
-                        user.save();
-                        console.log("Bookmarked");
-                        console.log(user.bookmarks);
-                        if(xerox==="book"){
-                            res.send({"message":"Added to Bookmarks"});
-                        }else{
-                            req.flash("success","Added to Bookmarks");
-                            res.redirect("/products/" + req.params.id);
-                        } 
-                    }      
-                }
-                if(req.body.bookmark==="Y"){
-                            var index = user.bookmarks.indexOf(req.params.id);
-                            console.log(index);
-                            if(index>-1){
-                                user.bookmarks.splice(index,1);
-                            }
-                            user.save();
-                            if(xerox==="book"){
-                                if(index==-1){
-                                    res.send({"message":"Index is -1"});  
-                                }else{
-                                    res.send({"message":"Removed From Bookmarks"});
-                                }
-                            }else{
-                                req.flash("success","Removed From Bookmarks");
-                                res.redirect("/products/" + req.params.id);
-                            } 
-                            console.log("Bookmark Removed");
-                            console.log(user.bookmarks);   
-                    }
-                }
-                
-            }
-        )
-    })
-
+   
 
     // router.post("/bookmark/notAuthorised",function(req,res){    
     //         req.flash("error","You need to be logged in"); 
