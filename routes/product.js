@@ -225,6 +225,7 @@ router.put("/products/:id",checkUser,function(req,res){
             if(xerox==="book"){
                 res.send(successMessage);
             }else{
+                console.log(product);
                 res.redirect("/products/" + req.params.id);
             }
             
@@ -301,17 +302,26 @@ router.put("/products/:id",checkUser,function(req,res){
                 console.log(err);
             }else{
                 if(req.body.bookmark==="N"){
-                    user.bookmarks.push(req.params.id);
-                    user.save();
-                    console.log("Bookmarked");
-                    console.log(user.bookmarks);
-                    if(xerox==="book"){
-                        res.send({"message":"Added to Bookmarks"});
+                    var index=user.bookmarks.indexOf(req.params.id);
+                    if(index>-1){
+                        if(xerox==="book"){
+                            res.send({"message":"This Book is already added to bookmarks"});
+                        }else{
+                            req.flash("error","Already added to Bookmarks");
+                            res.redirect("/products/" + req.params.id);
+                        }
                     }else{
-                        req.flash("success","Added to Bookmarks");
-                        res.redirect("/products/" + req.params.id);
-                    }
-                    
+                        user.bookmarks.push(req.params.id);
+                        user.save();
+                        console.log("Bookmarked");
+                        console.log(user.bookmarks);
+                        if(xerox==="book"){
+                            res.send({"message":"Added to Bookmarks"});
+                        }else{
+                            req.flash("success","Added to Bookmarks");
+                            res.redirect("/products/" + req.params.id);
+                        } 
+                    }      
                 }
                 if(req.body.bookmark==="Y"){
                             var index = user.bookmarks.indexOf(req.params.id);
