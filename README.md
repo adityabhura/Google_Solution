@@ -34,5 +34,28 @@ Make sure you have installed NodeJS on your system
 The portal can now be accessed directly at localhost:3000
 The website is now live at: http://35.193.15.204:3000/products
 
+# Some Snapshots of our Android App
+-Login Page
+<p align="center">
+  <img height="400px" src="https://user-images.githubusercontent.com/62247947/113058875-5926c100-91cc-11eb-9c6b-b1bcf30b8397.jpg">
+</p>
+  -Account Registration Page
+  <p align="center">
+  <img height="400px" src="https://user-images.githubusercontent.com/62247947/113060600-7fe5f700-91ce-11eb-9b04-047fbd928906.jpg">
+</p>  
+  -List of Books Uploaded
+<p align="center">
+  <img height="400px" src="https://user-images.githubusercontent.com/62247947/113060415-385f6b00-91ce-11eb-8965-3e6fb131d1e6.jpg">
+</p>
+ -Book description and Seller details
+ <p align="center">
+  <img height="400px" src="https://user-images.githubusercontent.com/62247947/113060851-d9e6bc80-91ce-11eb-980a-d7e7eb2b887c.jpg">
+  <img height="400px" src="https://user-images.githubusercontent.com/62247947/113060936-ec60f600-91ce-11eb-92db-16396430dcb1.jpg">
+</p>
+-My Profiles Page including the my bookmarks section
+https://user-images.githubusercontent.com/62247947/113061822-47471d00-91d0-11eb-92cb-3c124bb33584.mp4
+
+
+
 # Conclusion
 The knowledge from books is always a better option, and now it comes at a reduced cost. So go on and explore your brains!!
