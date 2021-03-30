@@ -1,7 +1,7 @@
 <%- include("partials/header") %>
 
 <div class="products">
-    <h1><%= user%></h1>
+    <h1><%= user.name%></h1>
     <h1><%= user.username %></h1>
 </div>
 <% if(currentUser && user._id.equals(currentUser._id)){ %>
