@@ -2,7 +2,6 @@ var mangoose=require("mongoose");
 var Product=require("./models/product.js");
 var Comment=require("./models/comments.js");
 var User=require("./models/user.js");
-var Myorder=require("./models/myorders.js");
 var request = require("request");
 
 function seedDB(){

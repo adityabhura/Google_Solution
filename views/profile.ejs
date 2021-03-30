@@ -1,13 +1,13 @@
 <%- include("partials/header") %>
 
 <div class="products">
-    <h1><%= user%></h1>
+    <h1><%= user.name%></h1>
     <h1><%= user.username %></h1>
 </div>
 <% if(currentUser && user._id.equals(currentUser._id)){ %>
     <div>
-        <button><a href="/profiles/<%= currentUser._id %>/mybookmarks">My Bookmarks</a></button>
-        <button><a href="/profiles/<%= currentUser._id %>/myproducts">Uploaded Books</a></button>
+        <button  class="btn btn-light"><a href="/profiles/<%= currentUser._id %>/mybookmarks">My Bookmarks</a></button>
+        <button  class="btn btn-light"><a href="/profiles/<%= currentUser._id %>/myproducts">Uploaded Books</a></button>
     </div
 <% } %>
 
