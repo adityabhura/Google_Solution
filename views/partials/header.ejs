@@ -1,28 +1,48 @@
 <html>
     <head>
-        <title>Order Manager</title>
+        <title>Libre Home</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
         <link rel="stylesheet" href="/app.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     </head>
     <body>
-        <div>
-    <div class="ui fixed inverted menu">
-            <div class="item">
-                <img class="ui mini image" src="../../uploads/imageWIN_20190802_08_54_23_Pro.jpg">
+    <div class="navbar navbar-expand-lg navbar-custom" id="navbar">
+            <div class="container-fluid"><div class="navbar-brand">
+                <a href="/"><img class="ui mini image" src="../../uploads/log.png"></a>
             </div>
-            <a href="/" class="item">Home</a>
-            <a href="/products/new" class="item">Add New Books</a>
-         <div class="right menu">
-            <%  if(!currentUser){ %>
-            <a href="/register"class="item">Register</a>
-            <a href="/login"class="item">Login</a>
-           <% }else{ %>
-            <a href="/logout"class="item">Logout</a>
-            <a href="/profiles/<%= currentUser._id %>" class="item">View Profile</a>
-            <a href="#" class="item">Loged in as <%= currentUser.name %></a>
-            <% } %>
+            <div>
+                <a href="/"><div class='navbar-brand'>Libre</div></a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Browse the Catalogue</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/products/new">Add New Book</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav justify-content-end">
+                <%  if(!currentUser){ %>
+                    <li class="nav-item"><a href="/register"class="item">Register</a></li>
+                    <li class="nav-item"><a href="/login"class="item">Login</a></li>
+                   <% }else{ %>
+                    <li class="nav-item"><a href="/logout"class="item">Logout</a></li>
+                    <li class="nav-item"><a href="/profiles/<%= currentUser._id %>" class="item">View Profile</a></li>
+                    <li class="nav-item"><a href="#" class="item">Logged in as <%= currentUser.name %></a></li>
+                    <% } %>
+            </ul>
         </div>
     </div>
+</div>
+
+    
     
 <% if(success && success.length>0){ %>
     <div class="ui continer" id="flash">
