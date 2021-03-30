@@ -12,6 +12,10 @@
             </div>
             <a href="/" class="item">Home</a>
             <a href="/products/new" class="item">Add New Books</a>
+            <form action="/search" method="GET">
+                <input type="search" name="search" placeholder="Search">
+                <button type="submit">Search</button>
+            </form>
          <div class="right menu">
             <%  if(!currentUser){ %>
             <a href="/register"class="item">Register</a>

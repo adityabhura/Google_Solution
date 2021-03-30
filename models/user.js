@@ -20,7 +20,7 @@ var UserSchema=new mongoose.Schema({
     },
     bookmarks:[{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Product",
+        ref:"Product"
     }],
     myproducts:[{
         type:mongoose.Schema.Types.ObjectId,

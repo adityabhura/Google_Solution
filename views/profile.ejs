@@ -6,9 +6,8 @@
 </div>
 <% if(currentUser && user._id.equals(currentUser._id)){ %>
     <div>
-        <button><a href="/profiles/<%= currentUser._id %>/myorders">See my ordered itmes</a></button>
-        <button><a href="/profiles/<%= currentUser._id %>/myproducts">See my uploaded itmes</a></button>
-        <button><a href="/profiles/<%= currentUser._id %>/ordered">Update the ordered itmes</a></button>
+        <button><a href="/profiles/<%= currentUser._id %>/mybookmarks">My Bookmarks</a></button>
+        <button><a href="/profiles/<%= currentUser._id %>/myproducts">Uploaded Books</a></button>
     </div
 <% } %>
 

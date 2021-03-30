@@ -4,8 +4,10 @@ var passport=require("passport");
 var User=require("../models/user.js");
 var randomstring=require("randomstring");
 var Product=require("../models/product.js");
-var Myorder=require("../models/myorders.js");
 var request=require("request");
+var mongoose=require("mongoose");
+
+mongoose.set('useFindAndModify', false);
 
 //register route
 router.get("/register",function(req,res){
@@ -143,19 +145,9 @@ router.get("/profiles/:id",isLoggedIn,function(req,res){
 })
 
 
-//********THE END********//
-router.get("/profiles/:id/myorders",checkAuthorisation,function(req,res){
-    User.findById(req.params.id).populate({path:"myorders",model:"Myorder"}).populate({path:"myorders",model:"Myorder",populate:{path:"product",model:"Product"}}).exec(function(err,user){
-        if(err){
-            console.log(err);
-        }else{
-            res.render("myorders",{user:user});
-        }
-    });
-})
 
 router.get("/profiles/:id/myproducts",checkAuthorisation,function(req,res){
-    User.findById(req.params.id).populate({path:"myproducts",model:"Product"}).exec(function(err,user){
+    User.findById(req.params.id).populate("myproducts").exec(function(err,user){
         if(err){
             console.log(err);
         }else{
@@ -164,59 +156,27 @@ router.get("/profiles/:id/myproducts",checkAuthorisation,function(req,res){
     });
 })
 
-router.get("/profiles/:id/ordered",checkAuthorisation,function(req,res){
-    User.findById(req.params.id).populate({path:"ordered",model:"Myorder"}).populate({path:"ordered",model:"Myorder",populate:{path:"product",model:"Product"}}).exec(function(err,user){
+
+router.get("/profiles/:id/mybookmarks",checkAuthorisation,function(req,res){
+    User.findById(req.params.id).populate("bookmarks").exec(function(err,user){
         if(err){
             console.log(err);
+            res.send(err);
         }else{
-            res.render("ordered",{user:user});
+            res.render("mybookmarks",{user:user});
         }
     });  
 })
+//********THE END********//
 
-router.get("/profiles/:id/ordered/:productid/track",checkAuthorisation,function(req,res){
-    Myorder.findById(req.params.productid).populate({path:"product",model:Product}).exec(function(err,ordered){
-        res.render("track",{order:ordered})
-    })
-})
 
-router.put("/profiles/:id/ordered/:productid/track",checkAuthorisation,function(req,res){
-    Myorder.findByIdAndUpdate(req.params.productid,req.body.myorder,function(err,order){
-        var track={
-            details:req.body.track,
-            updated:Date.now()
-        }
-        sendEmailOfTrackingDetails(order.author.id,req.body.track);
-        order.track.push(track);
-        order.save();
-        console.log(order.track)
-        res.send("success")
-    })
-})
-
-router.get("/profiles/:id/myorders/:productid/delete",checkUser,function(req,res){
-    Myorder.findById(req.params.productid,function(err,myorder){
-        res.render("cancelconfirm",{myorder:myorder})
-    })
-})
-
-router.put("/profiles/:id/myorders/:productid/delete",checkUser,function(req,res){
-    Myorder.findByIdAndUpdate(req.params.productid,req.body.myorder,function(err,myorder){
-        myorder.status=false;
-        myorder.updated=Date.now();
-        myorder.save();
-        cancelEmail(req.params.productid,req.user.username);
-        console.log(req.user)
-        res.redirect("/profiles/"+req.params.id+"/myorders")
-    })
-})
-
+//MIDDLEWARES
  //if logged in function
  function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){
         return next();
     }
-        req.flash("error","You need to logged in")
+        req.flash("error","You need to be logged in")
         res.redirect("/login");   
 }
 
@@ -239,7 +199,7 @@ function checkAuthorisation(req,res,next){
 } 
 }
 
-//check user logged in
+//check user logged in//
 function checkUser(req,res,next){
     if(req.isAuthenticated()){
         Myorder.findById(req.params.productid,function(err,foundProduct){

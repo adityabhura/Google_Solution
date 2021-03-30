@@ -1,13 +1,16 @@
 var express=require("express");
 var router=express.Router();
 var Product=require("../models/product.js");
-var Myorder=require("../models/myorders.js");
 var mongoose=require("mongoose");
 var User=require("../models/user.js");
-var request=require("request")
+var Comment=require("../models/comments.js");
+var request=require("request");
+// var clearRequire = require('clear-require');
+// const decache = require('decache');
+
 
 var multer=require("multer");
-const { findById } = require("../models/user.js");
+const { findById, db } = require("../models/user.js");
 
 var storage=multer.diskStorage({
     destination:function(req,file,cb){
@@ -182,14 +185,14 @@ router.post("/products/xeroxbook",isLoggedIn,(req,res,next)=>{upload(req,res,fun
 router.get("/products/:id",isLoggedIn,function(req,res){
     var xerox=req.query.xerox;
     var currentUser=req.user;
-    Product.findById(req.params.id).populate("comments").exec(function(err,selectedProduct){
+    Product.findById(req.params.id).populate({path:"comments",model:Comment}).exec(function(err,selectedProduct){
         if(err){
             console.log(err);
         }else{
             if(xerox==="book"){
                 res.send(selectedProduct);
             }else{
-                // console.log(selectedProduct);
+                console.log(selectedProduct);
                 res.render("show",{product:selectedProduct,currentUser:currentUser});
             }
         }
@@ -260,6 +263,7 @@ router.put("/products/:id",checkUser,function(req,res){
 
 
 //bookmark routes//
+//*****Adding and deleting bookmark post route*****/
 router.post("/bookmark/:id/:userId",isLoggedIn,function(req,res){
     var xerox=req.query.xerox;
     var x=0;
@@ -315,6 +319,54 @@ router.post("/bookmark/:id/:userId",isLoggedIn,function(req,res){
     )
 })
 
+
+
+//***********search route***********//
+router.get("/search",isLoggedIn,function(req,res){
+    var xerox=req.query.xerox;
+    var searchText=(req.query.search);
+    
+    if(!searchText){
+            if(xerox==="book"){
+                res.send({"message":"No results Found"});
+            }else{
+                req.flash("error","No results Found");
+                res.redirect("/products");
+            }
+            
+        }else{
+            db.collection("products").find({title:new RegExp(searchText,"i")}).toArray(function(err,data){
+                
+                if(err){
+                    if(xerox==="book"){
+                        res.send({"message":"Error"});
+                    }else{
+                        res.send(err);
+                    }
+                }else{
+                    if(xerox==="book"){
+                        if(!data[0]){
+                            res.send({"message":"No results found"});
+                        }else{
+                            res.send(data);
+                        }
+                    }else{
+                        if(!data[0]){
+                            req.flash("error","No results Found");
+                            res.redirect("/products");
+                        }else{
+                            res.render("search.ejs",{products:data});
+                        }
+                    }
+                }
+                }
+            );
+        }
+    
+})
+
+
+
  
 //if logged in function
     function isLoggedIn(req,res,next){
@@ -349,16 +401,6 @@ router.post("/bookmark/:id/:userId",isLoggedIn,function(req,res){
     //     // JSON.parse(req.body);
     //     res.send(req.body);
     //   });
-
-
-
-
-   
-
-    // router.post("/bookmark/notAuthorised",function(req,res){    
-    //         req.flash("error","You need to be logged in"); 
-    // })
-
 
  module.exports=router;
 
