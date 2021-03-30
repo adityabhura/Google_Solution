@@ -44,7 +44,12 @@
             <span><%= product.Created.toDateString() %></span>
         </div>
         <div class="description">
-            <p>Location of Renter:<p><%= product.location%></p> 
+            <p>Location of Renter:<p><%= product.address.area%>, <%= product.address.city %></p> 
+        </div>
+        <div class="description">
+            <p>Sold By:</p>
+            <p>Name: <%= product.author.username %></p>
+            Phone Number: <%= product.phoneNumber %>
         </div>
         <div class="description">
             <p>By <%= product.bookauthor %></p> 
