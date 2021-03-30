@@ -50,12 +50,24 @@ router.post("/login",function(req,res,next){
 var xerox=req.query.xerox;
 User.findOne({username:req.body.username},function(err,user){
     if(!user){
+         if(xerox==="book"){
+                res.send({
+                    "message":"Invalid Email or Password"
+                })
+            }else{
             req.flash("error","Invalid Email or Password")
             res.redirect("/login"); 
+            }
     }else{
         if(!user.active){
+            if(xerox==="book"){
+                res.send({
+                    "message":"Verify Your Account first"
+                })
+            }else{
             req.flash("error","Verify Your Account first");
             res.redirect("/login");
+            }
         }
          return next();
     }
