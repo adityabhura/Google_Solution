@@ -52,8 +52,10 @@ The website is now live at: http://35.193.15.204:3000/products
   <img height="400px" src="https://user-images.githubusercontent.com/62247947/113060851-d9e6bc80-91ce-11eb-980a-d7e7eb2b887c.jpg">
   <img height="400px" src="https://user-images.githubusercontent.com/62247947/113060936-ec60f600-91ce-11eb-92db-16396430dcb1.jpg">
 </p>
--My Profiles Page including the my bookmarks section
-https://user-images.githubusercontent.com/62247947/113061822-47471d00-91d0-11eb-92cb-3c124bb33584.mp4
+-My Profiles Page including the my uploads section
+ <p align="center">
+  <img height="400px" src="https://user-images.githubusercontent.com/62247947/113062354-36e37200-91d1-11eb-9af8-1fcb6c57ac61.png">
+</p>
 
 
 
