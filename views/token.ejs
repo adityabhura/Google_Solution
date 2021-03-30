@@ -1,8 +1,11 @@
 <%- include("partials/header") %>
+
 <div class="products">
-<form action="/verify" method="POST">
-<input type="text" name="token">
-<button>submit</button>
+    <div class="col-xs-2">
+    <form action="/verify" method="GET" class="form-inline my-2 my-lg-0">
+        <input type="text" name="token" placeholder="Enter Verification Code" class="form-control mr-sm-2">
+        <button class="btn btn-outline-primary">Submit</button>
+    </div>
 </form>
 </div>
 <%- include("partials/footer") %>
