@@ -18,6 +18,11 @@ The web portal is an alternative for people who are not on Android Devices, it o
 # Use Case
 We are trying to include the book owners and the interested readers in a friendly ecosystem that can benefit both the parties in play.
 
+# Tech Stack
+<p align="center">
+  <img height="300px" src="./uploads/Stack.png">
+ </p>
+
 # Running the Android App Locally
 1.  Clone the [Repository](https://github.com/glitch-droid/Libre)
 2.  Now launch Android Studio
@@ -28,36 +33,19 @@ We are trying to include the book owners and the interested readers in a friendl
 
 # Running the Website Locally
 Make sure you have installed NodeJS on your system
-1. Clone the [Repository](https://github.com/adityabhura/Google_Solution) and open the folder on the CLI.
+1. Clone the [Repository](https://github.com/adityabhura/:ibre) and open the folder on the CLI.
 2. Run npm install
        npm start
 The portal can now be accessed directly at localhost:3000
 The website is now live at: http://35.193.15.204:3000/products
 
-# Some Snapshots of our Android App
--Login Page
+# Screenshots
 <p align="center">
-  <img height="400px" src="https://user-images.githubusercontent.com/62247947/113058875-5926c100-91cc-11eb-9c6b-b1bcf30b8397.jpg">
+  <img height="400px" src="./uploads/ScreenShot 1.png">
 </p>
-  -Account Registration Page
-  <p align="center">
-  <img height="400px" src="https://user-images.githubusercontent.com/62247947/113060600-7fe5f700-91ce-11eb-9b04-047fbd928906.jpg">
-</p>  
-  -List of Books Uploaded
 <p align="center">
-  <img height="400px" src="https://user-images.githubusercontent.com/62247947/113060415-385f6b00-91ce-11eb-8965-3e6fb131d1e6.jpg">
+  <img height="400px" src="./uploads/ScreenShot 2.png">
 </p>
- -Book description and Seller details
- <p align="center">
-  <img height="400px" src="https://user-images.githubusercontent.com/62247947/113060851-d9e6bc80-91ce-11eb-980a-d7e7eb2b887c.jpg">
-  <img height="400px" src="https://user-images.githubusercontent.com/62247947/113060936-ec60f600-91ce-11eb-92db-16396430dcb1.jpg">
-</p>
--My Profiles Page including the my uploads section
- <p align="center">
-  <img height="400px" src="https://user-images.githubusercontent.com/62247947/113062354-36e37200-91d1-11eb-9af8-1fcb6c57ac61.png">
-</p>
-
-
 
 # Conclusion
 The knowledge from books is always a better option, and now it comes at a reduced cost. So go on and explore your brains!!
