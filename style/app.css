@@ -53,3 +53,149 @@ margin-right: 5em;
   .material-icons{
       font-size: 10px;
   }
+
+  a:hover{text-decoration: none;}
+  html,body{overflow-x: hidden;overflow-y: auto;}
+  /*top-containt*/
+  .menu-1{text-transform:uppercase;margin-left:7%;font-weight:bold}
+  .menu{text-transform:uppercase;margin-left:5%;font-weight:bold}
+  .menu-bar{display:none;padding-right:8%;}
+  .profile-icon{height:30px;}
+  .logo-2,.side-bar,.close{display:none;}
+  .color{color:black;text-decoration: none;}
+  .color:hover{color:black;text-decoration: none;}
+  .profile-icon::after{content:"hello user";height:10%;width:10%;background-color: firebrick;}
+  .pre-profile-1:hover{background-color:rgba(212, 206, 206, 0.993)}
+  .menu-bar-1,.close{display:none;}
+  .pre-side-bar{list-style:none;text-transform: uppercase;font-weight: 600;font-size:15px;display:none;}
+  .menu-bar-2{display: none;}
+  .side-bar{display:none;}
+  html,body{overflow-x: hidden;overflow-y: auto;}
+  #change-color{position:fixed;transition: 0.2s linear;z-index:3;}
+  .side-list{position:fixed;z-index: 2;}
+  .logo-sift{margin-top:-7%;margin-bottom:-6%;}
+        .zooming-open,.zooming-open-1,.zooming-open-2,.zooming-open-3,.front-hide,.zooming-open-4{display:none;}
+        .zooming-2{z-index:-1;position: absolute;opacity:0.7;width:75%;height:55px}
+        .break,.break-1{display:none;}
+        .show-for-tablate,.show-for-small-devices,.show-for-mobile,.show-for-extra-small-devices{display: none;}
+        .table{padding-left:5%;padding-right:5%;}
+        .block-img-for-tablate{font-size:20px;z-index:2;color:black;position: absolute;padding-left:20%;}
+        .table-header{padding-left:5%}
+        .zooming,.zooming-1,.zooming-3,.zooming-4,.zooming-5{width:100%;height:50px;}
+        .image-lable{font-size:15px;font-weight:bold;text-transform: uppercase;}
+        .img-men{height:250px;width:250px;}
+  
+  .pop-container{display:none}
+  .icons-1,.icons,.icons-2,.icons-3{border:1px solid transparent;padding:2% 2.2%;margin-left:2%;border-radius:50px;background-color:rgb(49, 48, 48);}
+  .icons-2{padding:2% 3%;}
+  .icons-3{padding:2% 2.5%;}
+  .icons{padding:2% 2.8%;}
+  .icon-head{text-align: end;}
+
+
+
+  .card-white  .card-heading {
+    color: #333;
+    background-color: #fff;
+    border-color: #ddd;
+     border: 1px solid #dddddd;
+  }
+  .card-white  .card-footer {
+    background-color: #fff;
+    border-color: #ddd;
+  }
+  .card-white .h5 {
+      font-size:14px;
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  .card-white .time {
+      font-size:12px;
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  .post .post-heading {
+    height: 95px;
+    padding: 20px 15px;
+  }
+  .post .post-heading .avatar {
+    width: 60px;
+    height: 60px;
+    display: block;
+    margin-right: 15px;
+  }
+  .post .post-heading .meta .title {
+    margin-bottom: 0;
+  }
+  .post .post-heading .meta .title a {
+    color: black;
+  }
+  .post .post-heading .meta .title a:hover {
+    color: #aaaaaa;
+  }
+  .post .post-heading .meta .time {
+    margin-top: 8px;
+    color: #999;
+  }
+  .post .post-image .image {
+    width: 100%;
+    height: auto;
+  }
+  .post .post-description {
+    padding: 15px;
+  }
+  .post .post-description p {
+    font-size: 14px;
+  }
+  .post .post-description .stats {
+    margin-top: 20px;
+  }
+  .post .post-description .stats .stat-item {
+    display: inline-block;
+    margin-right: 15px;
+  }
+  .post .post-description .stats .stat-item .icon {
+    margin-right: 8px;
+  }
+  .post .post-footer {
+    border-top: 1px solid #ddd;
+    padding: 15px;
+  }
+  .post .post-footer .input-group-addon a {
+    color: #454545;
+  }
+  .post .post-footer .comments-list {
+    padding: 0;
+    margin-top: 20px;
+    list-style-type: none;
+  }
+  .post .post-footer .comments-list .comment {
+    display: block;
+    width: 100%;
+    margin: 20px 0;
+  }
+  .post .post-footer .comments-list .comment .avatar {
+    width: 35px;
+    height: 35px;
+  }
+  .post .post-footer .comments-list .comment .comment-heading {
+    display: block;
+    width: 100%;
+  }
+  .post .post-footer .comments-list .comment .comment-heading .user {
+    font-size: 14px;
+    font-weight: bold;
+    display: inline;
+    margin-top: 0;
+    margin-right: 10px;
+  }
+  .post .post-footer .comments-list .comment .comment-heading .time {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 0;
+    display: inline;
+  }
+  .post .post-footer .comments-list .comment .comment-body {
+    margin-left: 50px;
+  }
+  .post .post-footer .comments-list .comment > .comments-list {
+    margin-left: 50px;
+  }

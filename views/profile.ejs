@@ -1,15 +1,26 @@
 <%- include("partials/header") %>
-
-<div class="products">
-    <h1><%= user.name%></h1>
-    <h1><%= user.username %></h1>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            <div class="products" style="align-items: center; justify-content: center;">
+                <div class="row">
+                    <img class="rounded-circle z-depth-2" alt="100x100" src="https://www.searchpng.com/wp-content/uploads/2019/02/Profile-ICon.png" data-holder-rendered="true">
+                </div>
+                <h1 style="padding-top: 20px;"><%= user.name%></h1>
+                <h2 style="padding-top: 10px;"><%= user.username %></h2>
+                <% if(currentUser && user._id.equals(currentUser._id)){ %>
+                    <div style="display: flex; justify-content: center;">
+                        
+                        <button style="padding-right: 20px;"  class="btn btn-light"><a href="/profiles/<%= currentUser._id %>/mybookmarks">My Bookmarks</a></button>
+                        <button style="padding-left: 20px;"  class="btn btn-light"><a href="/profiles/<%= currentUser._id %>/myproducts">Uploaded Books</a></button>
+                    </div
+                <% } %>
+            </div>
+        </div>
+    </div>
 </div>
-<% if(currentUser && user._id.equals(currentUser._id)){ %>
-    <div>
-        <button  class="btn btn-light"><a href="/profiles/<%= currentUser._id %>/mybookmarks">My Bookmarks</a></button>
-        <button  class="btn btn-light"><a href="/profiles/<%= currentUser._id %>/myproducts">Uploaded Books</a></button>
-    </div
-<% } %>
+
+
 
 
 <%- include("partials/footer") %>

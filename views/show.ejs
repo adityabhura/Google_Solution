@@ -1,121 +1,127 @@
 <%- include("partials/header") %>
 <div class="container">
 
-<!-- Contact Pop Up
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Contact to Rent</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="description">
-              Phone Number: <%= product.phoneNumber %>
-              Name: <%= product.author.username %> 
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div> -->
-   
- <!-- Product info -->
-    <div class="row mt-4 mb-4">
-      <div class="col-md-5 mt-2 mr-2 ml-auto">
-        <% product.image.forEach(function(image){ %>
-            <div class="item">
-                <img src="../<%=image%>" class="ui centered rounded image">
+    <div class="container mt-5 pt-4 hide-for-tablate">
+        <div class="row pt-5">
+            <div class="col-1">
+                <div class="row pt-3 pb-2">
+                    <div class="col-xl-12 text-center">
+                        <a href="#/"><img src="<%= product.image %> " height="50px" width="100%" class="zooming"></a>
+                    </div>
+                </div>
             </div>
-        <% }) %>
-      </div>
-      <div class="col-md-7 mt-2 mb-2 ml-2 mr-auto text-dark">
-        <h2><%=product.title%></h2>
-        <hr />
-        <p class="lead"> Description: 
-          <p><%=product.description%></p>
-        </p>
-        <div class="content">
-            <span><%= product.Created.toDateString() %></span>
-        </div>
-        <div class="description">
-            <p>Location of Renter:<p><%= product.address.area%>, <%= product.address.city %></p> 
-        </div>
-        <div class="description">
-            <p>Sold By:</p>
-            <p>Name: <%= product.author.username %></p>
-            Phone Number: <%= product.phoneNumber %>
-        </div>
-        <div class="description">
-            <p>By <%= product.bookauthor %></p> 
-        </div>
-        <div class="description">
-            <p><strong>Rs <%= product.amount %>/week</strong></p> 
-        </div>  
-        <!-- Bookmark Buttom starts here -->
-        <% var flag=0; %>
-        <% for(var i=0;i<currentUser.bookmarks.length ;i++){  %>
-            <%  if(String(currentUser.bookmarks[i])==String(product._id)){  %>           
-                <div class="extra content">                 
-                    <form action="/bookmark/<%=product._id %>/<%=currentUser._id %>" method="POST">
-                        <input id="bookmarkButton" type="submit" name="bookmark" value="Y" style="background-color:red; color: transparent;">
-                    </form>
-                </div> 
-                <%    flag=1;    %> 
-                <%  break;   %> 
-                <% }     %> 
-        <%  }  %> 
-        <%     if(flag===0){   %> 
-            <div class="extra content">
-                <form action="/bookmark/<%=product._id %>/<%=currentUser._id %>" method="POST">
-                    <input id="bookmarkButton" type="submit" name="bookmark" value="N" style="background-color: transparent;color: transparent;">
-                </form>
-            </div> 
-            <!-- buy form -->
-    <!-- <% if(product.quantity > 0){ %>
-        <a href="/products/<%= product._id %>/buy"> -->
-            <!-- </a>
-    <% }else{ %>
-        <h3>Sold Out</h3>
-    <% } %> -->
-    <% if(!product.author.id.equals(currentUser._id)){ %>
-        <a href="#"><button class="ui red basic button" data-toggle="modal" data-target="#exampleModal">Rent</button></a>
-    <% } %>
-    
-    
-
-     <% if(product.author.id.equals(currentUser._id) && currentUser ){ %>
-    <a href="/products/<%= product._id %>/edit"><button class="ui blue basic button">Edit</button></a>
-    <form id="delete" action="/products/<%= product._id %>?_method=DELETE" method="POST">
-        <button class="ui red basic button">Delete</button>
-    </form>
+            <div class="col-5 text-center zooming-open-head wm-zoom-container my-zoom-1">
+              <div class="wm-zoom-box">
+                <img src="<%= product.image %>" height="400px" width="405px" class="wm-zoom-default-img" alt="alternative text" data-hight-src="for-each-image-1.jpg">
+              </div>
+            </div>
+            <div class="col-5">
+                <div class="row">
+                    <div class="col-12 pt-3">
+                        <p style="font-size:25px;font-weight:600"><%= product.title %></p>
+                    </div>
+                    <div class="col-12 pl-5">
+                        <p style="font-weight:600;font-size:20px;"> Price:<span style="color:red">&#8377;<%= product.amount %>/ week</span></p>
+                    </div>
+                    <div class="col-12" style="padding: 5px;">
+                        <ul>
+                            <li style="padding: 5px; font-size: large;">Written By:<p><b><%= product.bookauthor %></b></p></li>
+                            <li style="padding: 5px; font-size: large;">Provided By:<p><b><%= product.author.username %></b></p></li>
+                            <li style="padding: 5px; font-size: large;">Location:<p><b><%= product.address.area%>, <%= product.address.city %></b></p></li>
+                            <li style="padding: 5px; font-size: large;">Created on:<p><b><%= product.Created.toDateString() %></b></p></li>
+                        </ul>
+                        <div>
+                            <% var flag=0; %>
+  <% for(var i=0;i<currentUser.bookmarks.length ;i++){  %>
+      <%  if(String(currentUser.bookmarks[i])==String(product._id)){  %>           
+          <div class="extra content">                 
+              <form action="/bookmark/<%=product._id %>/<%=currentUser._id %>" method="POST">
+                  <input id="bookmarkButton" type="submit" name="bookmark" value="Y" style="background-color:red; color: transparent;">
+              </form>
+          </div> 
+          <%    flag=1;    %> 
+          <%  break;   %> 
+          <% }     %> 
+  <%  }  %> 
+  <%     if(flag===0){   %> 
+      <div class="extra content">
+          <form action="/bookmark/<%=product._id %>/<%=currentUser._id %>" method="POST">
+              <input id="bookmarkButton" type="submit" name="bookmark" value="N" style="background-color: transparent;color: transparent;">
+          </form>
+      </div> 
+<!-- <% if(product.quantity > 0){ %>
+  <a href="/products/<%= product._id %>/buy"> -->
+      <!-- </a>
+<% }else{ %>
+  <h3>Sold Out</h3>
+<% } %> -->
+<% if(!product.author.id.equals(currentUser._id)){ %>
+    <a href="mailto:<%= product.author.username %>" style="color:white"><span style="width:30%;border:1px solid;padding:2% 5%;text-transform: uppercase;font-size:15px;background-image: linear-gradient(to right, #6a040f, #dc2f02);border-radius:10px;"></i><span class="ml-2">Rent Now</span></span></a>
+    <a href="/products/<%= product._id %>/comment/new"><span style="width:30%;border:1px    ;padding:2% 5%;text-transform: uppercase;font-size:15px;border-radius:10px;background-color: rgb(255, 174, 0);"><span class="ml-2" style="color: white;">Add Comment</span></span></a>
 <% } %>
-<div>
-    <a href="/products/<%= product._id %>/comment/new"><button class="ui green basic button">Add Comment</button></a>
 </div>
-        <% } %>   
-<!-- Bookmark Buttom ends here -->
-<div class="content">
-    <% product.comments.forEach(function(comment){ %>
-        <p><strong><b><%= comment.author.username %></b></strong></p>
-        <%= comment.title %>
-        <%= comment.date %>
-        <p><%= comment.comment %></p> 
-        <% if(comment.author.id.equals(currentUser._id) && currentUser ){ %>
-        <a href="/products/<%=product._id%>/comment/<%= comment._id%>/edit">
-            <button class="ui black basic button">Edit Comment</button>
-        </a>
-        <form action="/products/<%=product._id%>/comment/<%= comment._id%>?_method=DELETE" method="POST" id="delete">
-            <button class="ui black basic button">Delete Comment</button>
-        </form>
-        <% } %>
-    <% }) %>              
+
+<% if(product.author.id.equals(currentUser._id) && currentUser ){ %>
+<a href="/products/<%= product._id %>/edit" style="color: white;"><span style="width:30%;border:0px;padding:2% 5%;text-transform: uppercase;font-size:15px;background-image:linear-gradient(to right, #6a040f, #dc2f02);border-radius:10px;"></i><span class="ml-2">Edit</span></span></a>
+<form id="delete" action="/products/<%= product._id %>?_method=DELETE" method="POST" style="color: white;">
+    <button style="width:30%;border:0px;padding:2% 5%;text-transform: uppercase;font-size:15px;background-color:rgb(255, 174, 0);border-radius:10px; color: white;"><span class="ml-2">Delete</span></button>
+</form>
+<% } %>
+
+<% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="container">
+    <div class="row" style="padding-left: 13%;">
+    <div class="col-8">        
+    <div style="font-size: 35px; padding-top: 50px; padding-bottom: 25px;">
+            Book Description
+    </div>  
+    <div style="font-size: 15px; padding-top: 10px; padding-bottom: 25px;">
+        <%= product.description %>
 </div>
+    
+        <div style="font-size: 35px; padding-top: 25px; padding-bottom: 50px;">
+            Comments Section
+    </div>
+    
+                            <span style="width: 100%; height: 40px; color: white;"></span>
+                            <% product.comments.forEach(function(comment){ %>
+                            <div class="card card-white post">
+                                <div class="post-heading">
+                                    <div class="float-left image">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" class="img-circle avatar" alt="user profile image">
+                                    </div>
+                                    <div class="float-left meta">
+                                        <b><%= comment.author.username %></b>                                       
+                                        <h6 class="text-muted time" style="padding-bottom: 10px;"><%= comment.date %></h6>
+                                    </div>
+                                </div>
+                                <span style="height: 20px; color: white;"></span> 
+                                <div class="post-description">
+                                    <p><b><%= comment.title %></b></p>
+                                    <p><%= comment.comment %></p>
+                                </div>
+                                <% if(comment.author.id.equals(currentUser._id) && currentUser ){ %>
+                                    <a href="/products/<%=product._id%>/comment/<%= comment._id%>/edit">
+                                        <button class="ui black basic button">Edit Comment</button>
+                                    </a>
+                                    <form action="/products/<%=product._id%>/comment/<%= comment._id%>?_method=DELETE" method="POST" id="delete">
+                                        <button class="ui black basic button">Delete Comment</button>
+                                    </form>
+                                    <% } %>
+                            </div>
+                            <% }) %> 
+                        </div>
+                        
+                    </div>
+                </div>
       </div>
     </div>
   </div>
