@@ -49,6 +49,7 @@
               <input id="bookmarkButton" type="submit" name="bookmark" value="N" style="background-color: transparent;color: transparent;">
           </form>
       </div> 
+      <% } %>
 <!-- <% if(product.quantity > 0){ %>
   <a href="/products/<%= product._id %>/buy"> -->
       <!-- </a>
@@ -56,7 +57,7 @@
   <h3>Sold Out</h3>
 <% } %> -->
 <% if(!product.author.id.equals(currentUser._id)){ %>
-    <a href="mailto:<%= product.author.username %>" style="color:white"><span style="width:30%;border:1px solid;padding:2% 5%;text-transform: uppercase;font-size:15px;background-image: linear-gradient(to right, #6a040f, #dc2f02);border-radius:10px;"></i><span class="ml-2">Rent Now</span></span></a>
+    <a href="mailto:<%= product.author.username %>" style="color:white"><span style="width:30%;border:1px solid;padding:2% 5%;text-transform: uppercase;font-size:15px;background-image: linear-gradient(to right, #6a040f, #dc2f02);border-radius:10px;"></i><span class="ml-2">Contact Seller</span></span></a>
     <a href="/products/<%= product._id %>/comment/new"><span style="width:30%;border:1px    ;padding:2% 5%;text-transform: uppercase;font-size:15px;border-radius:10px;background-color: rgb(255, 174, 0);"><span class="ml-2" style="color: white;">Add Comment</span></span></a>
 <% } %>
 </div>
@@ -68,7 +69,7 @@
 </form>
 <% } %>
 
-<% } %>
+
                         </div>
                     </div>
                 </div>
