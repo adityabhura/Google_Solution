@@ -106,11 +106,9 @@ margin-right: 5em;
   }
   .card-white .h5 {
       font-size:14px;
-      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   }
   .card-white .time {
       font-size:12px;
-      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   }
   .post .post-heading {
     height: 95px;
@@ -199,3 +197,24 @@ margin-right: 5em;
   .post .post-footer .comments-list .comment > .comments-list {
     margin-left: 50px;
   }
+  
+  .btn-grad {background-image: linear-gradient(to right, #6a040f ,  #dc2f02)}
+  .btn-grad {
+     margin: 10px;
+     padding: 15px 25px;
+     text-align: center;
+     text-transform: uppercase;
+     transition: 0.5s;
+     background-size: 200% auto;
+     color: white;            
+     box-shadow: 0 0 20px #eee;
+     border-radius: 10px;
+     display: block;
+   }
+
+   .btn-grad:hover {
+     background-position: right center; /* change the direction of the change here */
+     color: #fff;
+     text-decoration: none;
+   }
+  
