@@ -1,11 +1,30 @@
 <%- include("partials/header") %>
 
-<div class="products">
-    <div class="col-xs-2">
-    <form action="/verify" method="GET" class="form-inline my-2 my-lg-0">
-        <input type="text" name="token" placeholder="Enter Verification Code" class="form-control mr-sm-2">
-        <button class="btn btn-outline-primary">Submit</button>
-    </div>
-</form>
+<div class="container" >
+    <div class="container form bg-white pt-5 mt-4 mb-3" >
+        <form action="/verify"  method="GET">
+        <p class="text-center login-heading hide-me">Login</p>
+        <div class="container hide-me">
+            <div class="row">
+                <div class="col mt-4 pl-5 pr-5">
+                    <p class="username">Verification Code:</p>
+                    <div class="row mt-4">
+                        <div class="col-2 text-center pt-1 pr-0">
+                            <i class="fa fa-key" aria-hidden="true" id="user"></i>
+                        </div>
+                        <div class="col-10 pl-0">
+                            <input type="text" name="token" placeholder="Enter Verification Code" class='input-1'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col pl-5 pr-5">
+                    <button class="btn btn-block text-white login-button text-white">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
+
 <%- include("partials/footer") %>

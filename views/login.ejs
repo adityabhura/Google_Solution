@@ -1,17 +1,59 @@
 <%- include("partials/header") %>
 
-<div class="ui main text container segment">
-    <div class="ui huge header">Login</div>
-    <form action="/login"  method="POST" class="ui form">
-        <div class="field">
-        <label>Email</label>
-        <input type="email" name="username" placeholder="Email" required>
+<div class="container">
+    <div class="container form bg-white pt-5 mt-4 mb-3">
+        <form action="/login"  method="POST">
+        <p class="text-center login-heading hide-me">Login</p>
+        <div class="container hide-me">
+            <div class="row">
+                <div class="col mt-4 pl-5 pr-5">
+                    <p class="username">Email</p>
+                    <div class="row mt-4">
+                        <div class="col-2 text-center pt-1 pr-0">
+                            <i class="fa fa-user-o" aria-hidden="true" id="user"></i>
+                        </div>
+                        <div class="col-10 pl-0">
+                            <input type="email" name="username" placeholder="Email" class='input-1' required>
+                        </div>
+                    </div>
+                    <hr class="hr-1">
+                    <div class="hide"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mt-4 pl-5 pr-5">
+                    <p class="username">Password</p>
+                    <div class="row mt-4">
+                        <div class="col-2 text-center pt-1 pr-0">
+                            <i class="fa fa-lock" aria-hidden="true" id="lock"></i>
+                        </div>
+                        <div class="col-10 pl-0">
+                            <input type="password" name="password" placeholder="Password" class="input-2" required>
+                        </div>
+                    </div>
+                    <hr class="hr-2">
+                    <div class="hide-1"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-right pr-5">
+                    <a href="/verify"><span class="forget-password">Verify Registration</span></a>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col pl-5 pr-5">
+                    <button class="btn btn-block text-white login-button text-white">Login</button>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col text-center">
+                    <span style="text-transform: capitalize;font-family: Arial, Helvetica, sans-serif;font-size:15px;font-weight:600;color:rgb(148, 141, 141)">Don't Have an Account?</span>
+                </div>
+                <div class="col-12 text-center pt-3">
+                    <a href="/register"><span class="sign-up">Sign Up</span></a>
+                </div>
+            </div>
         </div>
-        <div class="field">
-            <label>Password</label>
-            <input type="password" name="password" placeholder="Password" required>
-        </div>
-        <button class="ui blue basic button">Login</button>
     </form>
 </div>
 
