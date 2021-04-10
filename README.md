@@ -33,7 +33,7 @@ We are trying to include the book owners and the interested readers in a friendl
 
 # Running the Website Locally
 Make sure you have installed NodeJS on your system
-1. Clone the [Repository](https://github.com/adityabhura/:ibre) and open the folder on the CLI.
+1. Clone the [Repository](https://github.com/adityabhura/Libre) and open the folder on the CLI.
 2. Run npm install
        npm start
 The portal can now be accessed directly at localhost:3000
