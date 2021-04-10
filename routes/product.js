@@ -251,7 +251,7 @@ router.put("/products/:id",checkUser,function(req,res){
                 if(xerox==="book"){
                     res.send(successMessage);
                 }else{
-                    req.flash("success","Product Removed")
+                    req.flash("success","Book Removed")
                     res.redirect("/products");
                 }
 

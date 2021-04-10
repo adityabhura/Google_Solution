@@ -6,20 +6,24 @@
             <div class="col-1">
                 <div class="row pt-3 pb-2">
                     <div class="col-xl-12 text-center">
-                        <a href="#/"><img src="<%= product.image %> " height="50px" width="100%" class="zooming"></a>
+                        <a href="#"><img src="../<%= product.image %> " height="50px" width="100%" class="zooming"></a>
                     </div>
                 </div>
             </div>
             <div class="col-5 text-center zooming-open-head wm-zoom-container my-zoom-1">
               <div class="wm-zoom-box">
-                <img src="<%= product.image %>" height="400px" width="405px" class="wm-zoom-default-img" alt="alternative text" data-hight-src="for-each-image-1.jpg">
+                <img src="../<%= product.image %>" height="400px" width="405px" class="wm-zoom-default-img" alt="alternative text">
               </div>
             </div>
             <div class="col-5">
                 <div class="row">
+                    
                     <div class="col-12 pt-3">
                         <p style="font-size:25px;font-weight:600"><%= product.title %></p>
                     </div>
+
+                    
+
                     <div class="col-12 pl-5">
                         <p style="font-weight:600;font-size:20px;"> Price:<span style="color:red">&#8377;<%= product.amount %>/ week</span></p>
                     </div>
@@ -31,12 +35,13 @@
                             <li style="padding: 5px; font-size: large;">Created on:<p><b><%= product.Created.toDateString() %></b></p></li>
                         </ul>
                         <div>
+
                             <% var flag=0; %>
   <% for(var i=0;i<currentUser.bookmarks.length ;i++){  %>
       <%  if(String(currentUser.bookmarks[i])==String(product._id)){  %>           
           <div class="extra content">                 
               <form action="/bookmark/<%=product._id %>/<%=currentUser._id %>" method="POST">
-                  <input id="bookmarkButton" type="submit" name="bookmark" value="Y" style="background-color:red; color: transparent;">
+                <span style="padding: 5px; font-size: large;""><b>Bookmark Status: </b></span><input id="bookmarkButton" type="submit" name="bookmark" value="Y" style="background-color:red; color: transparent; height:20px; width: 20px; border-style:solid; border-color:black;">
               </form>
           </div> 
           <%    flag=1;    %> 
@@ -46,16 +51,12 @@
   <%     if(flag===0){   %> 
       <div class="extra content">
           <form action="/bookmark/<%=product._id %>/<%=currentUser._id %>" method="POST">
-              <input id="bookmarkButton" type="submit" name="bookmark" value="N" style="background-color: transparent;color: transparent;">
+            <span style="padding: 5px; font-size: large;""><b>Bookmark Status: </b></span><input id="bookmarkButton" type="submit" name="bookmark" value="N" style="background-color: transparent;color: transparent; height:20px; width: 20px; border-style:solid; border-color:black;">
           </form>
       </div> 
       <% } %>
-<!-- <% if(product.quantity > 0){ %>
-  <a href="/products/<%= product._id %>/buy"> -->
-      <!-- </a>
-<% }else{ %>
-  <h3>Sold Out</h3>
-<% } %> -->
+                            
+
 <% if(!product.author.id.equals(currentUser._id)){ %>
     <a href="mailto:<%= product.author.username %>?subject=Interested%20in%20buying%20<%= product.title %>&body=I%20would%20like%0Ato%20rent%20this%20book%20" style="color:white"><span style="width:30%;border:1px solid;padding:2% 5%;text-transform: uppercase;font-size:15px;background-image: linear-gradient(to right, #6a040f, #dc2f02);border-radius:10px;"></i><span class="ml-2">Rent Now</span></span></a>
     <a href="/products/<%= product._id %>/comment/new"><span style="width:30%;border:1px    ;padding:2% 5%;text-transform: uppercase;font-size:15px;border-radius:10px;background-color: rgb(255, 174, 0);"><span class="ml-2" style="color: white;">Add Comment</span></span></a>
@@ -67,6 +68,7 @@
 <form id="delete" action="/products/<%= product._id %>?_method=DELETE" method="POST" style="color: white;">
     <button style="width:30%;border:0px;padding:2% 5%;text-transform: uppercase;font-size:15px;background-color:rgb(255, 174, 0);border-radius:10px; color: white;"><span class="ml-2">Delete</span></button>
 </form>
+<a href="/products/<%= product._id %>/comment/new"><span style="width:30%;border:1px    ;padding:2% 5%;text-transform: uppercase;font-size:15px;border-radius:10px;background-color: rgb(255, 174, 0);"><span class="ml-2" style="color: white;">Add Comment</span></span></a>
 <% } %>
 
 
@@ -90,6 +92,7 @@
     
         <div style="font-size: 35px; padding-top: 25px; padding-bottom: 50px;">
             Comments Section
+
     </div>
     
                             <span style="width: 100%; height: 40px; color: white;"></span>
@@ -100,21 +103,16 @@
                                         <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" class="img-circle avatar" alt="user profile image">
                                     </div>
                                     <div class="float-left meta">
-                                        <b><%= comment.author.username %></b>                                       
-                                        <h6 class="text-muted time" style="padding-bottom: 10px;"><%= comment.date %></h6>
+                                        <b><%= comment.author.name %></b>                                       
+                                        <h6 class="text-muted time" style="padding-bottom: 5px;"><%= comment.date.toDateString() %></h6>
                                     </div>
-                                </div>
-                                <span style="height: 20px; color: white;"></span> 
+                                </div> 
                                 <div class="post-description">
-                                    <p><b><%= comment.title %></b></p>
                                     <p><%= comment.comment %></p>
                                 </div>
                                 <% if(comment.author.id.equals(currentUser._id) && currentUser ){ %>
-                                    <a href="/products/<%=product._id%>/comment/<%= comment._id%>/edit">
-                                        <button class="ui black basic button">Edit Comment</button>
-                                    </a>
                                     <form action="/products/<%=product._id%>/comment/<%= comment._id%>?_method=DELETE" method="POST" id="delete">
-                                        <button class="ui black basic button">Delete Comment</button>
+                                        <button style="width:30%;border:0px;padding:2% 5%;text-transform: uppercase;font-size:15px;background-image: linear-gradient(to right, #6a040f, #dc2f02); color: white;border-radius:10px;"><span class="ml-2">Delete Comment</span></button>
                                     </form>
                                     <% } %>
                             </div>

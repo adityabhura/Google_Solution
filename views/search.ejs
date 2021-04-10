@@ -1,12 +1,10 @@
 <%- include("partials/header") %>
-
 <div class="products">
+    <center><div class="container"><h1 class="jumbotron">Search Results</h1></div></center>
     <div class="ui four column doubling stackable grid container">
-   <% products.forEach(function(product){ %>
-      <div class="column">
-         <div class="ui link cards">
+        <% products.forEach(function(product){ %>
             <div class="column">
-                <div class="card">
+                <div class="card" st>
                     <img class="card-img-top" src="<%= product.image[0] %>" alt="Card image cap">
                     <div class="card-body">
                     <h5 class="card-title"><%= product.title %> </h5>
@@ -14,15 +12,22 @@
                     <ul class="list-group list-group-flush">
                     <li class="list-group-item">Rs <%= product.amount %> /week</li>
                     </ul>
-                      <a href="/products/<%= product._id %>" class="btn btn-outline-primary">Details</a>
+                      <a href="/products/<%= product._id %>" class="btn-grad">Details</a>
                     </div>
                   </div>
                 
             </div>
-         </div>
-     </div>
-   <% }) %>
-</div>
+        
+            <% }); %>       
+    </div>
 </div>
 
+
+
 <%- include("partials/footer") %>
+
+
+
+
+
+

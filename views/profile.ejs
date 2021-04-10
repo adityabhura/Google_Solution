@@ -6,13 +6,13 @@
                 <div class="row">
                     <img class="rounded-circle z-depth-2" alt="100x100" style="width: auto; height: 300px;" src="https://www.searchpng.com/wp-content/uploads/2019/02/Profile-ICon.png" data-holder-rendered="true">
                 </div>
-                <h1 style="padding-top: 20px;"><%= user.name%></h1>
-                <h2 style="padding-top: 10px;"><%= user.username %></h2>
+                <h1 style="padding-top: 20px;">Name: <%= user.name%></h1>
+                <h2 style="padding-top: 10px;">Email: <%= user.username %></h2>
                 <% if(currentUser && user._id.equals(currentUser._id)){ %>
                     <div style="display: flex; justify-content: center;">
                         
-                        <button class="btn-grad" ><a href="/profiles/<%= currentUser._id %>/mybookmarks"><h5 style="color: white;">My Bookmarks</h5></a></button>
-                        <button class="btn-grad" ><a href="/profiles/<%= currentUser._id %>/myproducts"><h5 style="color: white;">Uploaded Books</h5></a></button>
+                        <a href="/profiles/<%= currentUser._id %>/mybookmarks"><h5 style="color: white;"></h5><button class="btn-grad" >My Bookmarks</h5></button></a>
+                        <a href="/profiles/<%= currentUser._id %>/myproducts"><button class="btn-grad" ><h5 style="color: white;">Uploaded Books</h5></button></a>
                     </div
                 <% } %>
             </div>

@@ -33,7 +33,7 @@ router.post("/register",function(req,res){
             }  
         }else{
             sendEmail(user.username,user.token);
-            req.flash("success","Registered your account");
+            req.flash("success","A verification code has been sent to your email. Enter the verification code to activate your account");
             res.redirect("/verify");
             console.log("Registered"); 
         }
@@ -108,7 +108,7 @@ router.post("/verify",function(req,res){
             res.send(error);
         }else{
             req.flash("error","Invalid Verification Code");
-            redirect("/verify");
+            res.redirect("/verify");
         }       
     }else{
         if(err){
